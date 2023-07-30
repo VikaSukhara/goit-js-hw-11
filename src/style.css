@@ -1,0 +1,46 @@
+.search-form {
+  background-color: rgb(0, 0, 0);
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.searchedInput {
+  margin-right: 15px;
+  padding: 10px 15px;
+}
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: rgb(241, 206, 155);
+  color: rgb(51, 38, 38);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.gallery {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 30px;
+  flex-wrap: wrap;
+}
+
+.photo-card {
+  border: 2px solid #e7e9fc;
+  box-shadow: 0 1px 6px rgba(46, 47, 66, 0.08), 0 1px 1px rgba(46, 47, 66, 0.16),
+    0 2px 1px rgba(46, 47, 66, 0.08);
+}
+.info {
+  padding-left: 10px;
+}
+.load-more {
+  width: 215px;
+  margin: 0 auto;
+  display: none;
+}
