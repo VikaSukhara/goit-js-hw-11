@@ -24,18 +24,19 @@ async function handlerBtnSubmit(e) {
     e.preventDefault();
     refs.divEl.innerHTML = '';
     const { hits, totalHits } = await fetchLink(inputWord);
+    if (totalHits === 0) {
+      Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return;
+    } 
     refs.divEl.insertAdjacentHTML('beforeend', createMarkup(hits));
     simpleLightboxFrame.refresh();
     Notify.success(`Hooray! We found ${totalHits} images.`);
-
     refs.loadBtn.style.display = 'block';
     e.target.reset();
   } catch (err) {
     console.log(err);
-    Notify.warning(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  } finally {
   }
 }
 
