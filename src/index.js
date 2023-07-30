@@ -12,12 +12,13 @@ const refs = {
   loadBtn: document.querySelector('.load-more'),
 };
 
+let inputWord;
+
 refs.form.addEventListener('submit', handlerBtnSubmit);
 refs.loadBtn.addEventListener('click', loadMore);
 
-const inputWord = refs.inputEl.value.trim();
-
 async function handlerBtnSubmit(e) {
+  inputWord = refs.inputEl.value.trim();
   try {
     refs.loadBtn.style.display = 'none';
     e.preventDefault();
