@@ -11,7 +11,7 @@ const refs = {
   divEl: document.querySelector('.gallery'),
   loadBtn: document.querySelector('.load-more'),
 };
-
+let page = 1;
 let inputWord;
 
 refs.form.addEventListener('submit', handlerBtnSubmit);
@@ -20,6 +20,7 @@ refs.loadBtn.addEventListener('click', loadMore);
 async function handlerBtnSubmit(e) {
   inputWord = refs.inputEl.value.trim();
   try {
+    page = 1;
     refs.loadBtn.style.display = 'none';
     e.preventDefault();
     refs.divEl.innerHTML = '';
@@ -29,11 +30,20 @@ async function handlerBtnSubmit(e) {
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
-    } 
+    }
     refs.divEl.insertAdjacentHTML('beforeend', createMarkup(hits));
     simpleLightboxFrame.refresh();
     Notify.success(`Hooray! We found ${totalHits} images.`);
     refs.loadBtn.style.display = 'block';
+
+    if (Math.round(totalHits / 40) <= page) {
+      Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+      // page > Math.round(totalHits / 40)
+      refs.loadBtn.style.display = 'none';
+    }
+
     e.target.reset();
   } catch (err) {
     console.log(err);
@@ -76,21 +86,24 @@ function createMarkup(arr) {
     .join('');
 }
 
-let page = 1;
-
 async function loadMore(e) {
   try {
     page += 1;
     const { hits, totalHits } = await fetchLink(inputWord, page);
     refs.divEl.insertAdjacentHTML('beforeend', createMarkup(hits));
     simpleLightboxFrame.refresh();
-
-    if (hits.length === totalHits) {
+    if (page > Math.round(totalHits / 40)) {
       Notify.warning(
         "We're sorry, but you've reached the end of search results."
       );
+      // page > Math.round(totalHits / 40)
+      refs.loadBtn.style.display = 'none';
     }
   } catch (err) {
+    Notify.warning(
+      "We're sorry, but you've reached the end of search results."
+    );
+    refs.loadBtn.style.display = 'none';
     console.log(err);
   }
 }

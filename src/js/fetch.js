@@ -2,14 +2,14 @@ import axios from 'axios';
 
 const BASE_URL = 'https://pixabay.com/api/';
 
-export async function fetchLink(searchedWord, pageinf = +1) {
+export async function fetchLink(searchedWord, page = +1) {
   const options = {
     key: '38550354-eee994e31f66bb4c1e0427d2f',
     q: searchedWord,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
-    page: `${pageinf}`,
+    page: `${page}`,
     per_page: '40',
   };
 
